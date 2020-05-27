@@ -1,5 +1,11 @@
 import React from 'react';
 
-export const App = () => <></>;
+import { GlobalStyle } from 'visual/styles/GlobalStyle';
+
+export const App = () => (
+  <>
+    <GlobalStyle />
+  </>
+);
 
 export default App;
