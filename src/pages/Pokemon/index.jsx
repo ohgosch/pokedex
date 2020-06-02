@@ -52,18 +52,21 @@ export const Pokemon = () => {
         <Content>
           <Header>
             <Title>{pokemon.name}</Title>
-            <ImageWrapper>
-              <Image src={pokemon.image.front} />
-            </ImageWrapper>
+            {!!pokemon.image.front && (
+              <ImageWrapper>
+                <Image src={pokemon.image.front} />
+                <Image src={pokemon.image.back} />
+              </ImageWrapper>
+            )}
           </Header>
           <Details>
             <Detail>
               <DetailTitle>Height</DetailTitle>
-              <DetailContent>{`${pokemon.height} cm`}</DetailContent>
+              <DetailContent>{`${pokemon.height.toFixed()} cm`}</DetailContent>
             </Detail>
             <Detail>
               <DetailTitle>Weight</DetailTitle>
-              <DetailContent>{`${pokemon.weight} kg`}</DetailContent>
+              <DetailContent>{`${pokemon.weight.toFixed()} kg`}</DetailContent>
             </Detail>
             <Detail>
               <DetailTitle>Stats</DetailTitle>

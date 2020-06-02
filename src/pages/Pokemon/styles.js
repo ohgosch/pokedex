@@ -38,12 +38,27 @@ export const ImageWrapper = styled.div`
   height: 40px;
   order: 1;
   margin-right: 12px;
+
+  img:nth-child(2) {
+    opacity: 0;
+  }
+
+  &:hover {
+    img:nth-child(1) {
+      opacity: 0;
+    }
+
+    img:nth-child(2) {
+      opacity: 1;
+    }
+  }
 `;
 
 export const Image = styled.img`
   width: 90px;
   height: 90px;
   position: absolute;
+  transition: .5s ease;
 `;
 
 export const Details = styled.div`
