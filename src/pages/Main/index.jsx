@@ -4,6 +4,7 @@ import { PokemonItem } from 'components/PokemonItem';
 
 import { getPokemonList } from 'logic/requests/pokemon';
 import { urlToId } from 'logic/urlToId';
+import { ROUTES } from 'logic/constants';
 
 import { Container, PokemonList } from './styles';
 
@@ -27,7 +28,11 @@ export const Main = () => {
     <Container>
       <PokemonList>
         {pokemons.map(({ name, id }) => (
-          <PokemonItem key={id} title={name} link="/" />
+          <PokemonItem
+            key={id}
+            title={name}
+            link={ROUTES.POKEMON_DETAIL.replace(':id', id)}
+          />
         ))}
       </PokemonList>
     </Container>
