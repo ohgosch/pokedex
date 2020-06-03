@@ -7,35 +7,39 @@ import { getPokemonList } from 'logic/requests/pokemon';
 import { urlToId } from 'logic/urlToId';
 import { ROUTES } from 'logic/constants';
 
-import { Container, PokemonList, LoaderWrapper } from './styles';
+import { Container, PokemonList, LoaderWrapper, LoadMore } from './styles';
+
+const itemPerPage = 105;
+let total;
 
 export const Main = () => {
   const [pokemons, setPokemons] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [offset, setOffset] = useState(0);
 
   function replaceUrlToId(list) {
     return list.map(({ url, ...rest }) => ({ id: urlToId(url), ...rest }));
   }
 
+  function nextPage() {
+    setOffset(offset + itemPerPage);
+  }
+
   useEffect(() => {
     async function fetch() {
       setIsLoading(true);
-      const { data } = await getPokemonList();
-      setPokemons(replaceUrlToId(data.results));
+      const { data } = await getPokemonList({ limit: itemPerPage, offset });
+      total = data.count;
+      setPokemons([...pokemons, ...replaceUrlToId(data.results)]);
       setIsLoading(false);
     }
 
     fetch();
-  }, []);
+  }, [offset]);
 
   return (
     <Container>
-      {isLoading && (
-        <LoaderWrapper>
-          <Loader />
-        </LoaderWrapper>
-      )}
-      {!isLoading && (
+      {pokemons.length > 0 && (
         <PokemonList>
           {pokemons.map(({ name, id }) => (
             <PokemonItem
@@ -45,6 +49,20 @@ export const Main = () => {
             />
           ))}
         </PokemonList>
+      )}
+      {isLoading && (
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
+      )}
+      {pokemons.length > 0 && (
+        <LoadMore
+          as="button"
+          onClick={nextPage}
+          disabled={isLoading || offset + itemPerPage >= total}
+        >
+          Load more
+        </LoadMore>
       )}
     </Container>
   );
