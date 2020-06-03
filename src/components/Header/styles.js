@@ -10,3 +10,10 @@ export const Container = styled.div`
 export const LogoLink = styled(Link)``;
 
 export const Logo = styled.img``;
+
+export const Title = styled.h1`
+  font-size: 0;
+  position: absolute;
+  left: -999pc;
+  top: -999pc;
+`;
