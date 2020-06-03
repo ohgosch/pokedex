@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { Loader } from 'components/Loader';
 import { getPokemonDetail } from 'logic/requests/pokemon';
 
 import {
@@ -14,15 +15,18 @@ import {
   Detail,
   DetailTitle,
   DetailContent,
+  LoaderWrapper,
 } from './styles';
 
 export const Pokemon = () => {
   const [pokemon, setPokemon] = useState({});
   const [ready, setReady] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
     async function fetch() {
+      setIsLoading(true);
       const {
         data: { sprites, stats, abilities, height, weight, types, name },
       } = await getPokemonDetail(id);
@@ -41,6 +45,7 @@ export const Pokemon = () => {
 
       setPokemon(values);
       setReady(true);
+      setIsLoading(false);
     }
 
     fetch();
@@ -48,7 +53,12 @@ export const Pokemon = () => {
 
   return (
     <Container as="main">
-      {ready && (
+      {isLoading && (
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
+      )}
+      {ready && !isLoading && (
         <Content>
           <Header>
             <Title>{pokemon.name}</Title>

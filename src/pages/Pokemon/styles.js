@@ -94,3 +94,9 @@ export const DetailContent = styled.p`
   color: ${COLORS.red};
   padding-left: 10px;
 `;
+
+export const LoaderWrapper = styled.div`
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
+`;

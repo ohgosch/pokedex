@@ -12,3 +12,9 @@ export const PokemonList = styled(Wrapper)`
   justify-content: center;
   margin-top: 45px;
 `;
+
+export const LoaderWrapper = styled.div`
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
+`;
