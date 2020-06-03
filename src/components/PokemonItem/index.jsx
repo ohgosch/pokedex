@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Container, Title, TitleLink } from './styles';
@@ -6,7 +7,7 @@ import { Container, Title, TitleLink } from './styles';
 export const PokemonItem = ({ title, link }) => (
   <Container>
     <Title>
-      <TitleLink as="a" href={link}>
+      <TitleLink as={Link} to={link}>
         {title}
       </TitleLink>
     </Title>
